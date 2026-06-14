@@ -1,0 +1,67 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f4f6f9; color: #222; }
+a { text-decoration: none; color: inherit; }
+
+nav { background: #1a5276; color: #fff; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-size: 18px; font-weight: bold; color: #fff; }
+nav a, .nav-btn { color: #fff; margin-left: 14px; font-size: 14px; cursor: pointer; background: none; border: none; padding: 0; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+.form-box { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 32px; max-width: 480px; margin: 40px auto; }
+.form-box h2 { margin-bottom: 22px; font-size: 22px; }
+
+.card { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 18px; margin-bottom: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+
+label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; margin-top: 12px; }
+input, textarea, select { display: block; width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+textarea { resize: vertical; }
+
+button { display: inline-block; padding: 9px 18px; background: #1a5276; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+button:hover { background: #154360; }
+button:disabled { background: #aaa; cursor: not-allowed; }
+.btn-danger { background: #c0392b !important; } .btn-danger:hover { background: #a93226 !important; }
+.btn-secondary { background: #555 !important; } .btn-secondary:hover { background: #333 !important; }
+.btn-green { background: #1e8449 !important; } .btn-green:hover { background: #196f3d !important; }
+.btn-sm { padding: 5px 10px !important; font-size: 12px !important; }
+
+.error { color: #c0392b; font-size: 13px; margin-top: 8px; }
+.success { color: #1e8449; font-size: 13px; margin-top: 8px; }
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.tabs a button, .tabs button { background: #ddd; color: #333; }
+.tabs a button:hover, .tabs button:hover { background: #bbb; }
+
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; background: #d5f5e3; color: #1e8449; font-weight: bold; }
+.badge-pending { background: #fef9e7; color: #d68910; }
+.badge-inactive { background: #fadbd8; color: #c0392b; }
+
+.mlist { list-style: none; }
+.mlist li { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid #eee; }
+.mlist li:last-child { border-bottom: none; }
+
+.chat-wrap { display: flex; flex-direction: column; height: calc(100vh - 260px); min-height: 400px; }
+.chat-msgs { flex: 1; overflow-y: auto; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 12px; margin-bottom: 10px; }
+.msg { margin-bottom: 10px; padding: 8px 10px; border-radius: 6px; background: #eaf2ff; }
+.msg.mine { background: #d5f5e3; }
+.msg .sender { font-size: 11px; font-weight: bold; color: #1a5276; }
+.msg .text { font-size: 14px; margin-top: 2px; }
+.msg .time { font-size: 10px; color: #888; margin-top: 3px; }
+.chat-input { display: flex; gap: 8px; }
+.chat-input input { margin: 0; flex: 1; }
+
+.mat-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: #fff; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 8px; }
+.mat-row a { color: #1a5276; font-weight: bold; }
+
+.sub-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.sub-row input { margin: 0; flex: 1; }
+
+h1.pt { font-size: 24px; margin-bottom: 18px; }
+h2.st { font-size: 18px; margin: 20px 0 10px; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 16px; text-align: center; }
+.stat-card .num { font-size: 36px; font-weight: bold; color: #1a5276; }
+.stat-card .lbl { font-size: 13px; color: #555; margin-top: 4px; }
+
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
