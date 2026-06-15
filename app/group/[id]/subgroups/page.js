@@ -61,15 +61,28 @@ export default function Subgroups() {
   };
 
   const joinSub = async sub => {
-    setBusy({ ...busy, [sub.id]: true });
+    setBusy(prev => ({ ...prev, [sub.id]: true }));
     if (sub.join_policy === 'open') {
-      await supabase.from('group_members').insert({ group_id: sub.id, user_id: user.id });
+      const { error } = await supabase
+        .from('group_members').insert({ group_id: sub.id, user_id: user.id });
+      if (error && error.code !== '23505') {
+        show('Error: ' + error.message);
+        setBusy(prev => ({ ...prev, [sub.id]: false }));
+        return;
+      }
+      show('Joined!');
     } else {
-      await supabase.from('join_requests').insert({ group_id: sub.id, user_id: user.id });
+      const { error } = await supabase
+        .from('join_requests').insert({ group_id: sub.id, user_id: user.id });
+      if (error && error.code !== '23505') {
+        show('Error: ' + error.message);
+        setBusy(prev => ({ ...prev, [sub.id]: false }));
+        return;
+      }
+      show('Request sent!');
     }
-    show('Done!');
     await load(user.id);
-    setBusy({ ...busy, [sub.id]: false });
+    setBusy(prev => ({ ...prev, [sub.id]: false }));
   };
 
   if (loading) return <div className="container"><p>Loading...</p></div>;

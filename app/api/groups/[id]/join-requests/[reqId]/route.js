@@ -10,7 +10,12 @@ export async function PUT(req, { params }) {
   const { action } = await req.json();
   const { data: jreq } = await supabase.from('join_requests').select('user_id').eq('id', params.reqId).single();
   if (action === 'approve') {
-    await supabase.from('group_members').insert({ group_id: params.id, user_id: jreq.user_id });
+    const { error: memErr } = await supabase
+      .from('group_members')
+      .insert({ group_id: params.id, user_id: jreq.user_id });
+    if (memErr && memErr.code !== '23505') {
+      return NextResponse.json({ error: 'Failed to add member: ' + memErr.message }, { status: 500 });
+    }
     await supabase.from('join_requests').update({ status: 'approved' }).eq('id', params.reqId);
     return NextResponse.json({ approved: true });
   }
