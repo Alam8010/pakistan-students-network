@@ -16,8 +16,10 @@ export default function GroupPage() {
   const [loading,   setLoading] = useState(true);
   const [busy,      setBusy]    = useState(false);
   const [msg,       setMsg]     = useState('');
+  const [errMsg,    setErrMsg]  = useState('');
 
-  const show = m => { setMsg(m); setTimeout(() => setMsg(''), 3500); };
+  const show    = m => { setMsg(m);    setTimeout(() => setMsg(''),    3500); };
+const showErr = m => { setErrMsg(m); setTimeout(() => setErrMsg(''), 3500); };
 
   const load = async uid => {
     const { data: g } = await supabase
@@ -58,13 +60,31 @@ export default function GroupPage() {
     if (group.join_policy === 'open') {
       const { error } = await supabase
         .from('group_members').insert({ group_id: id, user_id: user.id });
-      if (error) show(error.message);
-      else { show('You joined this group!'); await load(user.id); }
+      if (error) {
+        if (error.code === '23505') {
+          setIsMem(true);
+          show('You are already a member of this group.');
+        } else {
+          showErr(error.message);
+        }
+      } else {
+        show('You joined this group!');
+        setIsMem(true);
+      }
     } else {
       const { error } = await supabase
         .from('join_requests').insert({ group_id: id, user_id: user.id });
-      if (error) show(error.message);
-      else { show('Join request sent!'); setReq(true); }
+      if (error) {
+        if (error.code === '23505') {
+          setReq(true);
+          show('You already have a pending request.');
+        } else {
+          showErr(error.message);
+        }
+      } else {
+        show('Join request sent!');
+        setReq(true);
+      }
     }
     setBusy(false);
   };
@@ -122,7 +142,8 @@ export default function GroupPage() {
             </div>
           </div>
         </div>
-        {msg && <p className="success">{msg}</p>}
+        {msg    && <p className="success">{msg}</p>}
+        {errMsg && <p className="error">{errMsg}</p>}
         {canAccess && (
           <div className="tabs">
             <Link href={`/group/${id}/chat`}><button>Chat</button></Link>
